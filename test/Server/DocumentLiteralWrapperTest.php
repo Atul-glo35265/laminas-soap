@@ -20,9 +20,6 @@ class DocumentLiteralWrapperTest extends TestCase
         ini_set("soap.wsdl_cache_enabled", 0);
     }
 
-    /**
-     * @runInSeparateProcess
-     */
     public function testDelegate()
     {
         $server = new Server(__DIR__ . self::WSDL);

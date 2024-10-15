@@ -981,9 +981,6 @@ class ServerTest extends TestCase
         $this->assertIsString($server->mockSoapServer->handle[0]);
     }
 
-    /**
-     * @runInSeparateProcess
-     */
     public function testShouldThrowExceptionIfHandledRequestContainsDoctype()
     {
         $server = new Server();

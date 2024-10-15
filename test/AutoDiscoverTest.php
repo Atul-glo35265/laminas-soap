@@ -1453,18 +1453,21 @@ class AutoDiscoverTest extends TestCase
         $this->documentNodesTest();
     }
 
-    /**
-     * @runInSeparateProcess
-     */
     public function testHandle()
     {
         $scriptUri = 'http://localhost/MyService.php';
-
         $this->server->setClass(Test::class);
 
         ob_start();
-        $this->server->handle();
+
+        $this->server->handle(function($header) {
+            // Optionally verify the header if you're mocking
+            $this->assertEquals('Content-Type: text/xml', $header);
+        });
+
         $actualWsdl = ob_get_clean();
+
+        // Assertions
         $this->assertNotEmpty($actualWsdl, "WSDL content was not outputted.");
         $this->assertStringContainsString($scriptUri, $actualWsdl, "Script URL was not found in WSDL content.");
     }
