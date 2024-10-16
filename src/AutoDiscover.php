@@ -6,7 +6,6 @@ use DOMElement;
 use Laminas\Server\Reflection;
 use Laminas\Soap\AutoDiscover\DiscoveryStrategy\DiscoveryStrategyInterface as DiscoveryStrategy;
 use Laminas\Soap\AutoDiscover\DiscoveryStrategy\ReflectionDiscovery;
-use Laminas\Soap\Wsdl;
 use Laminas\Soap\Wsdl\ComplexTypeStrategy\ComplexTypeStrategyInterface as ComplexTypeStrategy;
 use Laminas\Uri;
 
@@ -15,8 +14,10 @@ use function count;
 use function function_exists;
 use function get_class;
 use function gettype;
+use function header;
 use function htmlspecialchars;
 use function is_array;
+use function is_callable;
 use function is_object;
 use function is_string;
 use function is_subclass_of;
@@ -624,15 +625,19 @@ class AutoDiscover
     }
 
     /**
-     * handle function
+     * Handle function
      *
-     * @param  string $responseHandler
+     * @param  string|null|callable $responseHandler
      * @return void
      */
     public function handle($responseHandler = null)
     {
-        $responseHandler = $responseHandler ?? 'header';
-        $responseHandler('Content-Type: text/xml');
+        if (is_callable($responseHandler)) {
+            $responseHandler('Content-Type: text/xml');
+        } else {
+            header($responseHandler ?? 'Content-Type: text/xml');
+        }
+
         echo $this->toXml();
     }
 }
