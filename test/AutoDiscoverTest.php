@@ -1460,7 +1460,7 @@ class AutoDiscoverTest extends TestCase
 
         ob_start();
 
-        $this->server->handle(function($header) {
+        $this->server->handle(function ($header) {
             // Optionally verify the header if you're mocking
             $this->assertEquals('Content-Type: text/xml', $header);
         });

@@ -15,7 +15,6 @@ use function count;
 use function function_exists;
 use function get_class;
 use function gettype;
-use function header;
 use function htmlspecialchars;
 use function is_array;
 use function is_object;
@@ -624,6 +623,12 @@ class AutoDiscover
         return $this->generate()->toXml();
     }
 
+    /**
+     * handle function
+     *
+     * @param  string $responseHandler
+     * @return void
+     */
     public function handle($responseHandler = null)
     {
         $responseHandler = $responseHandler ?? 'header';
