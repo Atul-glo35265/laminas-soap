@@ -625,7 +625,7 @@ class AutoDiscover
     }
 
     /**
-     * Handle function
+     * Handle WSDL document
      *
      * @param  string|null|callable $responseHandler
      * @return void

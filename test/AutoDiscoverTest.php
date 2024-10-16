@@ -1461,13 +1461,11 @@ class AutoDiscoverTest extends TestCase
         ob_start();
 
         $this->server->handle(function (?string $header) {
-            // Optionally verify the header if you're mocking
             $this->assertEquals('Content-Type: text/xml', $header);
         });
 
         $actualWsdl = ob_get_clean();
 
-        // Assertions
         $this->assertNotEmpty($actualWsdl, "WSDL content was not outputted.");
         $this->assertStringContainsString($scriptUri, $actualWsdl, "Script URL was not found in WSDL content.");
     }
